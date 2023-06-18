@@ -1,6 +1,6 @@
 # Oracle APEX: Self-affirmations Mailing List app (in progress)
 ## DB
-### Mailing_list
+### MALING_LIST
   CREATE TABLE "MAILING_LIST" 
    (	"EMAIL" VARCHAR2(100) NOT NULL ENABLE, 
 	"FIRST_NAME" VARCHAR2(50) NOT NULL ENABLE, 
@@ -15,7 +15,7 @@
    ) ;
 
    COMMENT ON TABLE "MAILING_LIST"  IS 'The users who signed up for the Self Affimations Program';
-### Mailing_List_Terms
+### MAILING_LIST_TERMS
 CREATE TABLE "MAILING_LIST_TERMS" 
    (	"EMAIL" VARCHAR2(100 CHAR) NOT NULL ENABLE, 
 	"TYPE" VARCHAR2(100 CHAR) NOT NULL ENABLE, 
@@ -26,16 +26,28 @@ CREATE TABLE "MAILING_LIST_TERMS"
 
   ALTER TABLE "MAILING_LIST_TERMS" ADD FOREIGN KEY ("EMAIL")
 	  REFERENCES "MAILING_LIST" ("EMAIL") ENABLE;
-### Tables
-
-### Triggers
 
 ## Pages
-- Registration
+### Registration
+#### Form
+- Mailing List
+    - Table: MAILING_LIST
+#### Fields
+- P2_EMAIL
+    - Type: Text Field
+    - Subtype: Email
+    - Validation: upper(:P2_EMAIL) not in (SELECT upper(EMAIL) FROM MAILING_LIST) 
+- P2_ CONFIRMPASSWORD
+    - Type: Password
+    - Validation: :P2_CONFIRMPASSWORD = :P2_PASSWORD
+
+
+
 - Thankyou
-- Userlogin
+- Login
 - Update
 - Interests
     - Interest Modal
 - Descriptions
     - Description Modal
+- Logout
