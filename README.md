@@ -26,7 +26,11 @@ CREATE TABLE "MAILING_LIST_TERMS"
 
   ALTER TABLE "MAILING_LIST_TERMS" ADD FOREIGN KEY ("EMAIL")
 	  REFERENCES "MAILING_LIST" ("EMAIL") ENABLE;
-
+### API endpoints
+- https://apex.oracle.com/pls/apex/teochewthunder/mailinglist/readytoreceive
+- https://apex.oracle.com/pls/apex/teochewthunder/mailinglist/setreceived/:email
+- https://apex.oracle.com/pls/apex/teochewthunder/mailinglist/terms/:email
+  
 ## Pages
 ### Registration
 #### Form
