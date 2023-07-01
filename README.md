@@ -62,12 +62,12 @@ CREATE TABLE "MAILING_LIST_TERMS"
 - P2_ CONFIRMPASSWORD
     - Type: Password
     - Validation: :P2_CONFIRMPASSWORD = :P2_PASSWORD
-## Buttons
+#### Buttons
 - Register
     - Action: Submit
 
 ### Registration Thankyou (P10)
-## Buttons
+#### Buttons
 - Login
     - Action: Redirect to P1
 
