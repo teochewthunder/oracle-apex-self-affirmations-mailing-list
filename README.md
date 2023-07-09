@@ -31,7 +31,7 @@ CREATE TABLE "MAILING_LIST_TERMS"
 - https://apex.oracle.com/pls/apex/teochewthunder/mailinglist/setreceived/:email
 - https://apex.oracle.com/pls/apex/teochewthunder/mailinglist/terms/:email
   
-## Pages
+## Pages (All pages are Public)
 ### Registration (P2)
 #### Form
 - Mailing List
@@ -59,7 +59,9 @@ CREATE TABLE "MAILING_LIST_TERMS"
 - P2_INTERVAL
     - Type: Select List
     - Static values: Once per day (1), Every two days (2), Every week (7), Every two weeks (14), Every month (30)
-- P2_ CONFIRMPASSWORD
+- P2_PASSWORD
+    - Type: Password
+- P2_CONFIRMPASSWORD
     - Type: Password
     - Validation: :P2_CONFIRMPASSWORD = :P2_PASSWORD
 #### Buttons
@@ -71,7 +73,23 @@ CREATE TABLE "MAILING_LIST_TERMS"
 - Login
     - Action: Redirect to P1
 
-- Login
+### Login (P1) 
+#### Form
+- Mailing List
+    - Table: MAILING_LIST
+- After Processing
+    - Redirect to P3
+#### Fields
+- EMAIL
+    - Type: Text Field
+    - Subtype: Email
+    - Validation: :EMAIL in (SELECT EMAIL FROM MAILING_LIST WHERE upper(EMAIL) = upper(:EMAIL) AND PASSWORD = DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT => UTL_RAW.CAST_TO_RAW (:PASSWORD)))
+- PASSWORD
+    - Type: Password
+
+
+
+
 - Update
 - Interests
     - Interest Modal
