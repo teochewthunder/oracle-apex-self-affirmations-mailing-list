@@ -86,13 +86,45 @@ CREATE TABLE "MAILING_LIST_TERMS"
     - Validation: :EMAIL in (SELECT EMAIL FROM MAILING_LIST WHERE upper(EMAIL) = upper(:EMAIL) AND PASSWORD = DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT => UTL_RAW.CAST_TO_RAW (:PASSWORD)))
 - PASSWORD
     - Type: Password
+#### Buttons
+- Login
+    - Action: Submit
+- Register
+    - Action: Redirect to P2
 
 
+### Update (P3)
+#### Form
+- Pre-rendering
+    - IF (:EMAIL IS NULL) THEN apex_util.REDIRECT_URL(1); END IF;
+    - SELECT FIRST_NAME, LAST_NAME, DOB, GENDER, DAYS INTO :P3_FIRST_NAME, :P3_LAST_NAME, :P3_DOB, :P3_GENDER, :P3_DAYS FROM MAILING_LIST WHERE EMAIL = :EMAIL;
+- Mailing List
+    - Table: MAILING_LIST
+    - Processing
+        - UPDATE MAILING_LIST SETFIRST_NAME = :P3_FIRST_NAME, LAST_NAME = :P3_LAST_NAME, DOB = :P3_DOB, GENDER = :P3_GENDER, DAYS = :P3_DAYS WHERE upper(EMAIL) = upper(:EMAIL)
+#### Fields
+- P3_FIRST_NAME
+    - Type: Text Field
+- P3_LAST_NAME
+    - Type: Text Field
+- P3_DOB
+    - Type: Date Picker
+    - Maximum Static: -15y 
+- P3_GENDER
+    - Type: Radio Group
+    - Static values: M. F
+    - Default: M 
+- P3_INTERVAL
+    - Type: Select List
+    - Static values: Once per day (1), Every two days (2), Every week (7), Every two weeks (14), Every month (30)
+#### Buttons
+- Register
+    - Action: Submit
 
 
-- Update
 - Interests
     - Interest Modal
 - Descriptions
     - Description Modal
 - Logout
+- Shared Components
