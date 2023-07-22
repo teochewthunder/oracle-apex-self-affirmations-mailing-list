@@ -74,12 +74,12 @@ CREATE TABLE "MAILING_LIST_TERMS"
     - Type: Password
     - Validation: :P2_CONFIRMPASSWORD = :P2_PASSWORD
 #### Buttons
-- Register
+- REGISTER
     - Action: Submit
 
 ### Registration Thankyou (P10)
 #### Buttons
-- Login
+- LOGIN
     - Action: Redirect to P1
 
 ### Login (P1) 
@@ -96,17 +96,17 @@ CREATE TABLE "MAILING_LIST_TERMS"
 - PASSWORD
     - Type: Password
 #### Buttons
-- Login
+- LOGIN
     - Action: Submit
-- Register
+- REGISTER
     - Action: Redirect to P2
 
 
 ### Update (P3)
-#### Form
 - Pre-rendering
     - IF (:EMAIL IS NULL) THEN apex_util.REDIRECT_URL(1); END IF;
     - SELECT FIRST_NAME, LAST_NAME, DOB, GENDER, DAYS INTO :P3_FIRST_NAME, :P3_LAST_NAME, :P3_DOB, :P3_GENDER, :P3_DAYS FROM MAILING_LIST WHERE EMAIL = :EMAIL;
+#### Form
 - Mailing List
     - Table: MAILING_LIST
     - Processing
@@ -127,9 +127,35 @@ CREATE TABLE "MAILING_LIST_TERMS"
     - Type: Select List
     - Static values: Once per day (1), Every two days (2), Every week (7), Every two weeks (14), Every month (30)
 #### Buttons
-- Register
+- OPENPASSWORDMODAL
+    - Action: Redirect to P8
+- UPDATE
     - Action: Submit
 
+### Update Password (P8) (Modal)
+- Pre-rendering
+    - IF (:EMAIL IS NULL) THEN apex_util.REDIRECT_URL(1); END IF;
+#### Form
+- Mailing List
+    - Table: MAILING_LIST
+    - Processing
+        - UPDATE MAILING_LIST SET password = DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT => UTL_RAW.CAST_TO_RAW (:P8_PASSWORD)) WHERE upper(EMAIL) = upper(:EMAIL)
+#### Fields
+- P8_PASSWORD
+    - Type: Password
+- P8_CONFIRMPASSWORD
+    - Type: Password
+    - Validation: :P8_CONFIRMPASSWORD = :P8_PASSWORD
+#### Buttons
+- UPDATEPASSWORD
+    - Action: Submit
+ 
+### Logout (P9)
+- Pre-rendering
+    - Clear Current Session
+#### Buttons
+- BACKTOLOGIN
+    - Action: Redirect to P1
 
 - Interests
     - Interest Modal
