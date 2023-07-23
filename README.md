@@ -106,6 +106,7 @@ CREATE TABLE "MAILING_LIST_TERMS"
 - Pre-rendering
     - IF (:EMAIL IS NULL) THEN apex_util.REDIRECT_URL(1); END IF;
     - SELECT FIRST_NAME, LAST_NAME, DOB, GENDER, DAYS INTO :P3_FIRST_NAME, :P3_LAST_NAME, :P3_DOB, :P3_GENDER, :P3_DAYS FROM MAILING_LIST WHERE EMAIL = :EMAIL;
+- Top Navigation: (shared Comp)
 #### Form
 - Mailing List
     - Table: MAILING_LIST
@@ -157,9 +158,76 @@ CREATE TABLE "MAILING_LIST_TERMS"
 - BACKTOLOGIN
     - Action: Redirect to P1
 
-- Interests
-    - Interest Modal
-- Descriptions
-    - Description Modal
-- Logout
+### Interests (P4)
+- Pre-rendering
+    - IF (:EMAIL IS NULL) THEN apex_util.REDIRECT_URL(1); END IF;
+- Top Navigation: (shared Comp)
+#### ListView
+- upper(EMAIL) = upper(:EMAIL) AND TYPE = 'INTERESTS'
+- Text Column: TERM
+- Link Target: 6
+#### Form
+- New Interest
+    - Table: MAILING_LIST_TERMS
+    - Processing: INSERT INTO MAILING_LIST_TERMS (EMAIL, TYPE, TERM) VALUES (:EMAIL, 'INTERESTS', :P4_TERM);
+#### Fields
+- P4_TERM
+    - Type: Text Field
+    - Validation: upper(:P4_TERM) not in (SELECT upper(TERM) FROM MAILING_LIST_TERMS WHERE EMAIL = :EMAIL AND TYPE = 'INTERESTS')
+#### Buttons
+- ADDNEWINTEREST
+    - Action: Submit
+
+### Delete Interest (P6) (Modal)
+#### Form
+- Delete Interest
+    - Table: MAILING_LIST_TERMS
+    - Processing: DELETE FROM MAILING_LIST_TERMS WHERE EMAIL = :EMAIL AND TYPE = 'INTERESTS' AND TERM = :P6_TERM;
+- After Processing
+    - Redirect to P4
+#### Fields
+- P4_TERM
+    - Type: Text Field
+    - ReadOnly
+#### Buttons
+- DELETEINTEREST
+    - Action: Submit
+
+    
+### Descriptions (P5)
+- Pre-rendering
+    - IF (:EMAIL IS NULL) THEN apex_util.REDIRECT_URL(1); END IF;
+- Top Navigation: (shared Comp)
+#### ListView
+- upper(EMAIL) = upper(:EMAIL) AND TYPE = 'DESCRIPTIONS'
+- Text Column: TERM
+- Link Target: 7
+#### Form
+- New Description
+    - Table: MAILING_LIST_TERMS
+    - Processing: INSERT INTO MAILING_LIST_TERMS (EMAIL, TYPE, TERM) VALUES (:EMAIL, 'DESCRIPTIONS', :P5_TERM);
+#### Fields
+- P5_TERM
+    - Type: Text Field
+    - Validation: upper(:P5_TERM) not in (SELECT upper(TERM) FROM MAILING_LIST_TERMS WHERE EMAIL = :EMAIL AND TYPE = 'DESCRIPTIONS')
+#### Buttons
+- ADDNEWDESCRIPTION
+    - Action: Submit
+
+### Delete Description (P7) (Modal)
+#### Form
+- Delete Description
+    - Table: MAILING_LIST_TERMS
+    - Processing: DELETE FROM MAILING_LIST_TERMS WHERE EMAIL = :EMAIL AND TYPE = 'DESCRIPTIONS' AND TERM = :P7_TERM;
+- After Processing
+    - Redirect to P4
+#### Fields
+- P7_TERM
+    - Type: Text Field
+    - ReadOnly
+#### Buttons
+- DELETEDESCRIPTION
+    - Action: Submit
+
+
 - Shared Components
