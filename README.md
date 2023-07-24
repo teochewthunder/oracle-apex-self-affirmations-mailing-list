@@ -30,7 +30,7 @@ CREATE TABLE "MAILING_LIST_TERMS"
 - https://apex.oracle.com/pls/apex/teochewthunder/mailinglist/readytoreceive
     - GET
     - Collection Query
-    - SELECT EMAIL, FIRST_NAME, LAST_NAME, DOB, GENDER FROM MAILING_LIST WHERE LAST_SENT < TO_DATE(CURRENT_DATE - DAYS)
+    - SELECT EMAIL, FIRST_NAME, LAST_NAME, DOB, GENDER FROM MAILING_LIST WHERE LAST_SENT < TO_DATE(CURRENT_DATE - (DAYS - 1))
 - https://apex.oracle.com/pls/apex/teochewthunder/mailinglist/setreceived/:email
     - GET
     - PL/SQL
