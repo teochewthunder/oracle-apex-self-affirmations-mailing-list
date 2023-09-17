@@ -1,4 +1,4 @@
-# Oracle APEX: Self-affirmations Mailing List app (in progress)
+# Oracle APEX Self-affirmations Mailing List app
 ## DB
 ### MALING_LIST
   CREATE TABLE "MAILING_LIST" 
