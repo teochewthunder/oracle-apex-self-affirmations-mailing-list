@@ -26,19 +26,6 @@ CREATE TABLE "MAILING_LIST_TERMS"
 
   ALTER TABLE "MAILING_LIST_TERMS" ADD FOREIGN KEY ("EMAIL")
 	  REFERENCES "MAILING_LIST" ("EMAIL") ENABLE;
-### API endpoints
-- https://apex.oracle.com/pls/apex/teochewthunder/mailinglist/readytoreceive
-    - GET
-    - Collection Query
-    - SELECT EMAIL, FIRST_NAME, LAST_NAME, DOB, GENDER FROM MAILING_LIST WHERE LAST_SENT < TO_DATE(CURRENT_DATE - (DAYS - 1))
-- https://apex.oracle.com/pls/apex/teochewthunder/mailinglist/setreceived/:email
-    - GET
-    - PL/SQL
-    - UPDATE MAILING_LIST SET LAST_SENT = CURRENT_DATE  WHERE EMAIL = :email
-- https://apex.oracle.com/pls/apex/teochewthunder/mailinglist/terms/:email
-    - GET
-    - Collection Query
-    - SELECT TYPE, TERM FROM MAILING_LIST_TERMS WHERE EMAIL = :email
   
 ## Pages (All pages are Public)
 ### Registration (P2)
